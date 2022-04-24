@@ -1,6 +1,6 @@
 header{
     background: linear-gradient(92.33deg, #087990 0.12%, #055160 100%);
-    /* height:295px;  */
+    
 }
 .header-title{
     padding-top: 68px;
@@ -9,19 +9,16 @@ header{
     align-items: center;
     
 }
-.header-title h1{
-    
+.header-title h1{  
 font-family: Inter;
 font-size: 72px;
 font-weight: 700;
 line-height: 87px;
 letter-spacing: 0em;
-
-
-    color:#CFF4FC
+color:#CFF4FC
 }
 .header-title p{
-   
+padding-bottom:100px ;
 font-family: Inter;
 font-size: 21px;
 font-weight: 400;
