@@ -68,6 +68,18 @@ let getJsonFile = (pathToFile) => {
   return my_JSON_object;
 };
 const allEmoji = getJsonFile("https://emoji-api-app.herokuapp.com/");
+//
+
+function antiDuplicate(arg1) {
+  arg1 = arg1.split(" ");
+  let allEmojiUnique = [];
+  for (let i = 0; i < arg1.length; i++) {
+    if (allEmojiUnique.indexOf(arg1[i]) == -1) {
+      allEmojiUnique.push(arg1[i]);
+    }
+  }
+  return (allEmojiUnique = allEmojiUnique.join(" "));
+}
 
 function loadDivs() {
   let elem = document.querySelector(".grid_main");
@@ -77,18 +89,18 @@ function loadDivs() {
           <div class="grid-item">
               <div>${item.symbol}</div>
               <h2>${item.title}</h2>
-              <p>${item.keywords}</p>
+              <p>${antiDuplicate(item.keywords)}</p>
           </div>
           `;
   });
   elem.innerHTML = insideElems;
 }
 loadDivs();
-
+let searchItems = document.querySelectorAll(".grid-item");
 document.querySelector("#search").oninput = function () {
   let val = this.value.trim();
-  let searchItems = document.querySelectorAll(".grid-item");
-  if (val != "") {
+
+  if (val.length > 2) {
     searchItems.forEach(function (elem) {
       if (elem.innerText.search(val) == -1) {
         elem.classList.add("grid-item-search");
