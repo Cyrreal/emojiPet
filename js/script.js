@@ -99,7 +99,7 @@ loadDivs();
 let searchItems = document.querySelectorAll(".grid-item");
 document.querySelector("#search").oninput = function () {
   let val = this.value.trim();
-  val = val.toLowerCase();
+  //   val = val.toLowerCase();
   if (val.length > 2) {
     searchItems.forEach(function (elem) {
       if (elem.innerText.search(val) == -1) {
