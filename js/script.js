@@ -1,51 +1,100 @@
-let main = document.getElementsByTagName("main")[0];
-console.dir(main);
+// let getJsonFile = (pathToFile) => {
+//   let request = new XMLHttpRequest();
 
-let main_div = document.createElement("div");
-main_div.className = "grid_main";
-// let grid_h2 = document.createElement("h2");
-// let grid_div_inside = document.createElement("div");
-// let grid_p = document.createElement("p");
+//   request.open("GET", pathToFile, false);
+//   request.send(null);
 
-let createDiv = (arg1, arg2, arg3) => {
-  let grid_div = document.createElement("div");
-  grid_div.insertAdjacentHTML("afterbegin", `<div>${arg3}<div>`);
-  grid_div.insertAdjacentHTML("afterbegin", `<h2>${arg2}<h2>`);
-  grid_div.insertAdjacentHTML("afterbegin", `<p>${arg1}<p>`);
-  main_div.append(grid_div);
-  main.append(main_div);
-  grid_div.className = "grid-item";
+//   let my_JSON_object = JSON.parse(request.responseText);
+
+//   return my_JSON_object;
+// };
+// const allEmoji = getJsonFile("https://emoji-api-app.herokuapp.com/");
+// console.log(allEmoji);
+// let main = document.getElementsByTagName("main")[0];
+
+// let main_div = document.createElement("div");
+// main_div.className = "grid_main";
+
+// let createDiv = (arg1, arg2, arg3) => {
+//   let grid_div = document.createElement("div");
+//   grid_div.insertAdjacentHTML("afterbegin", `<div>${arg3}<div>`);
+//   grid_div.insertAdjacentHTML("afterbegin", `<h2>${arg2}<h2>`);
+//   grid_div.insertAdjacentHTML("afterbegin", `<p>${arg1}<p>`);
+//   main_div.append(grid_div);
+//   main.append(main_div);
+//   grid_div.className = "grid-item";
+// };
+
+// createDiv(
+//   "Eggplant or баклажан, one of the most popular emoji",
+//   "Eggplant",
+//   "&#127814"
+// );
+// createDiv(
+//   "Eggplant or баклажан, one of the most popular emoji",
+//   "Eggplant",
+//   "&#127814"
+// );
+// createDiv(
+//   "Eggplant or баклажан, one of the most popular emoji",
+//   "Eggplant",
+//   "&#127814"
+// );
+// createDiv(
+//   "Eggplant or баклажан, one of the most popular emoji",
+//   "Eggplant",
+//   "&#127814"
+// );
+// createDiv(
+//   "Eggplant or баклажан, one of the most popular emoji",
+//   "Eggplant",
+//   "&#127814"
+// );
+// createDiv(
+//   "Eggplant or баклажан, one of the most popular emoji",
+//   "Eggplant",
+//   "&#127814"
+// );
+
+// // grid_div.className = "flex";
+let getJsonFile = (pathToFile) => {
+  let request = new XMLHttpRequest();
+
+  request.open("GET", pathToFile, false);
+  request.send(null);
+
+  let my_JSON_object = JSON.parse(request.responseText);
+
+  return my_JSON_object;
 };
+const allEmoji = getJsonFile("https://emoji-api-app.herokuapp.com/");
 
-createDiv(
-  "Eggplant or баклажан, one of the most popular emoji",
-  "Eggplant",
-  "&#127814"
-);
-createDiv(
-  "Eggplant or баклажан, one of the most popular emoji",
-  "Eggplant",
-  "&#127814"
-);
-createDiv(
-  "Eggplant or баклажан, one of the most popular emoji",
-  "Eggplant",
-  "&#127814"
-);
-createDiv(
-  "Eggplant or баклажан, one of the most popular emoji",
-  "Eggplant",
-  "&#127814"
-);
-createDiv(
-  "Eggplant or баклажан, one of the most popular emoji",
-  "Eggplant",
-  "&#127814"
-);
-createDiv(
-  "Eggplant or баклажан, one of the most popular emoji",
-  "Eggplant",
-  "&#127814"
-);
+function loadDivs() {
+  let elem = document.querySelector(".grid_main");
+  let insideElems = "";
+  allEmoji.forEach(function (item) {
+    insideElems += `
+          <div class="grid-item">
+              <div>${item.symbol}</div>
+              <h2>${item.title}</h2>
+              <p>${item.keywords}</p>
+          </div>
+          `;
+  });
+  elem.innerHTML = insideElems;
+}
+loadDivs();
 
-// grid_div.className = "flex";
+document.querySelector("#search").oninput = function () {
+  let val = this.value.trim();
+  let searchItems = document.querySelectorAll(".grid-item");
+  if (val != "") {
+    searchItems.forEach(function (elem) {
+      if (elem.innerText.search(val) == -1) {
+        elem.classList.add("grid-item-search");
+      } else {
+        elem.classList.remove("grid-item-search");
+      }
+    });
+  }
+};

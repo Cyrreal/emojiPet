@@ -10,8 +10,8 @@
 
 }
 .search-bar input{
-    width: 820px;
-    height: 68px;
+    padding: 22px 502px 21px 32px;
+    
     border: 1px solid #CED4DA;
     border-radius: 4px;
     color:#ABB5BE;
@@ -30,14 +30,15 @@
     background-color: #ffff;
     display:flex;
     align-items: center;
-    flex-direction: column-reverse;
+    flex-direction: column;
     padding: 16px;
     border-radius: 4px;
 }
+.grid-item-search{
+    display:none;
+}
 
 .grid-item div{
-    /* width: 48px;
-    height: 48px; */
     font-size: 48px;
 }
 .grid-item h2 {
