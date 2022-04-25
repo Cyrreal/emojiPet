@@ -11,7 +11,6 @@
 }
 .search-bar input{
     padding: 22px 502px 21px 32px;
-    
     border: 1px solid #CED4DA;
     border-radius: 4px;
     color:#ABB5BE;
@@ -20,11 +19,26 @@
     line-height: 21px;
 }
 
+
 .grid_main{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 22px 19px;  
 }
+@media screen and (max-width:950px){
+    .grid_main{
+        grid-template-columns: 1fr 1fr;
+    }
+    .search-bar input{
+        padding: 22px 100px 21px 32px;
+    }
+}
+@media screen and (max-width:455px){
+    .search-bar input{
+        padding: 22px 50px 21px 32px;
+    }
+}
+
 
 .grid-item{
     background-color: #ffff;

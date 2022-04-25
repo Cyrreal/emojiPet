@@ -27,3 +27,10 @@ letter-spacing: 0em;
 color:#CFF4FC
 
 }
+
+@media screen and (max-width:455px){
+    .header-title h1{
+    font-size: 42px;
+    line-height: 57px;
+    }
+}
