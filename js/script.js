@@ -9,45 +9,74 @@ let getJsonFile = (pathToFile) => {
   return my_JSON_object;
 };
 const allEmoji = getJsonFile("https://emoji-api-app.herokuapp.com/");
-//
 
-function antiDuplicate(arg1) {
-  arg1 = arg1.split(" ");
-  let allEmojiUnique = [];
-  for (let i = 0; i < arg1.length; i++) {
-    if (allEmojiUnique.indexOf(arg1[i]) == -1) {
-      allEmojiUnique.push(arg1[i]);
+let sortEmoji = allEmoji.map((element) => {
+  for (key in element) {
+    if (key == "keywords") {
+      // console.log(element[key]);
+      let res = element[key].split(" ");
+      res = [...new Set(res)].join(" ");
+      element[key] = res;
     }
   }
-  return (allEmojiUnique = allEmojiUnique.join(" "));
-}
+  return element;
+});
 
-function loadDivs() {
+function loadDivsStart() {
   let elem = document.querySelector(".grid_main");
   let insideElems = "";
-  allEmoji.forEach(function (item) {
+  sortEmoji.forEach(function (item) {
     insideElems += `
           <div class="grid-item">
               <div>${item.symbol}</div>
               <h2>${item.title}</h2>
-              <p>${antiDuplicate(item.keywords)}</p>
+              <p>${item.keywords}</p>
           </div>
           `;
   });
   elem.innerHTML = insideElems;
 }
-loadDivs();
-let searchItems = document.querySelectorAll(".grid-item");
-document.querySelector("#search").oninput = function () {
-  let val = this.value.trim();
-  //   val = val.toLowerCase();
-  if (val.length > 2) {
-    searchItems.forEach(function (elem) {
-      if (elem.innerText.search(val) == -1) {
-        elem.classList.add("grid-item-search");
-      } else {
-        elem.classList.remove("grid-item-search");
-      }
+loadDivsStart();
+
+let searchInput = document.querySelector("#search");
+searchInput.addEventListener("input", (event) => search(event));
+
+const search = (event) => {
+  let res = sort.filter((elem) => {
+    return (
+      elem.title.includes(event.target.value) ||
+      elem.keywords.includes(event.target.value)
+    );
+  });
+
+  loadDivs(res);
+};
+
+function loadDivs(res = []) {
+  let elem = document.querySelector(".grid_main");
+  let insideElems = "";
+
+  if (res.length == 0) {
+    sortEmoji.forEach(function (item) {
+      insideElems += `
+          <div class="grid-item">
+              <div>${item.symbol}</div>
+              <h2>${item.title}</h2>
+              <p>${item.keywords}</p>
+          </div>
+          `;
+    });
+  } else {
+    res.forEach(function (item) {
+      insideElems += `
+          <div class="grid-item">
+              <div>${item.symbol}</div>
+              <h2>${item.title}</h2>
+              <p>${item.keywords}</p>
+          </div>
+          `;
     });
   }
-};
+  elem.innerHTML = insideElems;
+}
+loadDivs();
